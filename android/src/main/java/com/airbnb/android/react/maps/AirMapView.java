@@ -310,7 +310,12 @@ public class AirMapView extends MapView implements GoogleMap.InfoWindowAdapter,
         if (!paused) {
             onPause();
         }
-        onDestroy();
+        try {
+            onDestroy();
+        } catch (Exception e) {
+            // Suppress crash when back button is pressed, unknown side effects
+            Log.e("AirMapView", e.getMessage());
+        }
     }
 
     public void setRegion(ReadableMap region) {
